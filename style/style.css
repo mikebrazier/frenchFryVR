@@ -1,0 +1,110 @@
+@font-face{
+	font-family: 'OpenSans';
+	src: url('fonts/OpenSans/OpenSans/OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face{
+	font-family: 'OpenSansBold';
+	src: url('fonts/OpenSans/OpenSansBold/OpenSans-Bold.ttf') format('truetype');
+}
+
+
+body{
+	background-color: #FFEBD6;
+
+	font-family: 'OpenSans';
+	font-size: 125%
+}
+
+.hasBackground{
+	background-color: rgba(255, 80, 0, 0.3);
+}
+#container{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	padding-top:0;
+
+	text-align: center;
+	color: #FFFFFF;
+}
+
+iframe{
+	position: fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height: 100%;
+}
+
+#heading{
+	width:100%;
+	padding-top: 3%;
+	padding-bottom:1%;
+}
+
+#title{
+	font-family: 'OpenSansBold';
+	font-size: 250%;
+    letter-spacing: 2px;
+    margin-bottom: 2%;
+}
+
+#username{
+	border-radius: 4px;
+	border-style: none; 
+	background-color: rgba(255, 255, 255, 0.2);
+
+	font-family: 'OpenSans';
+	font-weight: bold;
+	font-size:100%;
+	color: #FFFFFF;
+}
+
+#usernameButton{
+	background-color: rgba(255, 255, 255, 0.2);
+	background-image: none;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 5px;
+
+	font-size: 100%;
+	color:#FFFFFF;
+}
+
+#connections{
+	width:30%;
+	margin-top: 1%;
+	margin-left:35%;
+
+	border: 1px transparent rgba(255, 161, 118, 0.5);
+	border-radius: 5px;
+	box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+#goVR{
+	width:30%;
+	margin-left:35%;
+
+	border: 1px transparent rgba(255, 161, 118, 0.5);
+	border-radius: 5px;
+}
+
+img{
+	width:35%;
+}
+h1{
+	font-size:150%;
+}
+
+span{
+	color:#888888;
+}
+
+ul{
+	margin-top: 2%;
+	padding:0;
+	list-style-type:none;
+	color: #FFFFFF;
+}

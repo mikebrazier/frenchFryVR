@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Picture Viewer</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+		html, body, canvas{
+			margin:0;
+			padding:0;
+		}
+		</style>
+	</head>
+
+	<body>
+	</body>
+
+	<!-- libraries -->
+	<script src="../js/three.min.js"></script>
+
+	<script>
+		/*
+		Setup three.js WebGL renderer
+		*/
+
+		var renderer = new THREE.WebGLRenderer( { antialias: true } );
+			renderer.setClearColor( 0xFFF5E6, 1);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+		document.body.appendChild( renderer.domElement );
+
+		var scene = new THREE.Scene();
+
+		// var ambientLight = new THREE.AmbientLight( 0xCCFFCC );
+
+		// scene.add(ambientLight);
+
+
+ 		var texture = THREE.ImageUtils.loadTexture('../images/napkin_texture_by_luiexs.jpg');
+ 		var ground = new THREE.Mesh(new THREE.PlaneGeometry( 200, 200, 10, 10 ), new THREE.MeshBasicMaterial({map: texture }));
+ 			ground.position.z = -75;
+ 			ground.position.y = 15;
+
+
+		// Math.random() * (max - min) + min
+		frenchFries = [];
+		
+		for(var i = 0; i<12; i++){
+			var frenchFry = new THREE.Mesh(new THREE.BoxGeometry( .5, 8, .5), new THREE.MeshBasicMaterial({color:0xFFEB99}));
+			//position
+			frenchFry.position.x = Math.random() * ((33)-(-33))+(-33);
+			frenchFry.position.z = Math.random() * ((-30)-(-15))+(-15);
+			frenchFry.position.y = Math.random() * (70-(-10))+(-10);
+			//rotation
+			frenchFry.rotation.x = Math.random() * ((.5)-(-0))+(-0);
+			frenchFry.rotation.z = Math.random() * ((-1.2)-(-15))+(-0);
+			frenchFry.rotation.y = Math.random() * (.8-(-0))+(-0);
+			frenchFries.push(frenchFry);
+			scene.add(frenchFry);
+		}
+
+
+		function animateFrenchFries(){
+			frenchFries.forEach(function(fry){
+				fry.position.y -= .02;
+				fry.rotation.y -= Math.random()*.02;
+				fry.rotation.x -= Math.random()*.01;
+				if(fry.position.y < -15) fry.position.y = 60;
+			});
+		}
+
+ 		scene.add(ground);
+
+ 		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+ 			camera.position.y = 15;
+
+ 		scene.add( camera );
+
+		/*
+		animation stuff
+		 */
+
+		function animate() {
+			animateFrenchFries();
+			renderer.render( scene, camera );
+			requestAnimationFrame( animate );
+		}
+
+		/*
+		Kick off animation loop
+		*/
+
+		animate();
+
+
+		/*
+		Handle window resizes
+		*/
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight);
+		}
+
+
+		window.addEventListener('resize', onWindowResize, false );
+
+	</script>
+</html>
