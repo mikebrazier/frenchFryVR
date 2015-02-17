@@ -35,18 +35,23 @@ peerJSHelper = function(){
 
 			//when someone connects to us
 			peer.on('connection', function(conn) {
-				//add this new individual to our list
+				//add this new connection to our list
 				self.connections.addConnection(conn);
 
-				//call this peer
+				//call the new peer across the connection
 				var call = peer.call(conn.peer, mediaStream);
 
-				//provide the current connections with this new connection
+				//provide the currently connected peers with this new connection
 				var connID = conn.peer;
 				var data = {};
 					data.connID = connID;
 
 				self.connections.sendData(data);
+
+				//if a threeHelper scene exists, add a new player to it
+				if(threeHelper.scene){
+					threeHelper.addPlayer(conn.peer);
+				}
 			});
 
 			//when the peer receives a call, in our case for audio
@@ -125,13 +130,26 @@ peerJSHelper = function(){
 					players[data.name].person.position.fromArray(data.position);
 				}
 
+				//if a user sends us an id
 				if(data.connID){
 
 					var myIDs = Object.keys(connections.list);
 
+					//go through the ids we're currently connected to
 					if(myIDs.indexOf(data.connID) < 0){
+						//if we're not connected to them yet, connect to them
 						var connection = self.peer.connect(data.connID);
 						self.connections.addConnection(connection);
+						//if a threeHelper scene exists, add a new player to it
+						if(threeHelper.scene){
+							threeHelper.addPlayer(connection.peer);
+						}
+						/*
+						TODO
+
+						provide this new connection our mediaStream.  I haven't worked too much on multiple calls, but I'm sure it's easy enough.
+						However, I can only guess that juggling multiple calls at once will start bogging things down.
+						 */
 					}
 				}
 			});

@@ -16,6 +16,17 @@ threeHelper = function(){
 
 	}
 
+	self.addPlayer = function( name ){
+		var player = new Player( false );
+			player.ready.then(function(results){
+				var playerperson = results;
+					playerperson.name = name;
+					playerperson.position.z = -20;
+				self.scene.add(playerperson);
+			});
+		players[name] = player;
+	}
+
 	makeScene = function(){
 
 		/*
