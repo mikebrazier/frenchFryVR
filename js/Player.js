@@ -20,7 +20,7 @@ Player = function ( myPlayer ){
 		self.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 
 		if(self.myPlayer){
-			self.cameraControls = new THREE.VRControls(self.camera);
+			self.cameraControls = new THREE.VRControls(self.camera, function(str){console.log(str)});
 			self.name = peerHelper.id;
 		}
 

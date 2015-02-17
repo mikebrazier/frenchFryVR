@@ -10,14 +10,14 @@
 
 
 body{
-	background-color: #FFEBD6;
+	background-color: #0082BF;
 
 	font-family: 'OpenSans';
 	font-size: 125%
 }
 
 .hasBackground{
-	background-color: rgba(255, 80, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);;
 }
 #container{
 	position:absolute;
@@ -43,6 +43,8 @@ iframe{
 	width:100%;
 	padding-top: 3%;
 	padding-bottom:1%;
+	box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.2);
+
 }
 
 #title{
@@ -55,7 +57,7 @@ iframe{
 #username{
 	border-radius: 4px;
 	border-style: none; 
-	background-color: rgba(255, 80, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 
 	font-family: 'OpenSans';
 	font-weight: bold;
@@ -64,7 +66,7 @@ iframe{
 }
 
 #usernameButton{
-	background-color: rgba(255, 80, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 	background-image: none;
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 5px;
@@ -89,6 +91,8 @@ iframe{
 
 	border: 1px transparent rgba(255, 161, 118, 0.5);
 	border-radius: 5px;
+	box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.2);
+
 }
 
 img{
@@ -99,12 +103,11 @@ h1{
 }
 
 span{
-	color:#C06565;
+	color:#179EDD;
 }
 
 li{
-		background-color: rgba(255, 80, 0, 0.3);
-
+	background-color: rgba(0, 0, 0, 0.3);
 }
 ul{
 	margin-top: 2%;

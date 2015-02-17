@@ -69,16 +69,18 @@ THREE.VRControls = function ( camera, done ) {
 			return null;
 		}
 		orientation	= vrInput.getState().orientation;
-		vrState = {
-			hmd : {
-				rotation : [
-					orientation.x,
-					orientation.y,
-					orientation.z,
-					orientation.w
-				]
-			}
-		};
+		if(orientation != null){
+			vrState = {
+				hmd : {
+					rotation : [
+						orientation.x,
+						orientation.y,
+						orientation.z,
+						orientation.w
+					]
+				}
+			};
+		}
 		return vrState;
 	};
 

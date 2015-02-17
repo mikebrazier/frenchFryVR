@@ -62,9 +62,9 @@ function startThree(){
 	players = {};
 	//threeHelper handles the graphics side of the VR experience
 	threeHelper = new threeHelper();
-	//remove the iframe background
+	//remove the iframe background, if there is one
 	var vrIframe = document.getElementById( 'vrIframe' );
-		vrIframe.parentNode.removeChild( vrIframe );
+	if(vrIframe)vrIframe.parentNode.removeChild( vrIframe );
 	//add in the scene
 	document.getElementById('webGL').appendChild( threeHelper.renderer.domElement );
 	//send to other players my information
