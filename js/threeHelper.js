@@ -11,7 +11,7 @@ threeHelper = function(){
 
 		self.player.update();
 		self.playerControls.update();
-		self.effect.render( self.scene, self.camera );
+		self.effect.render( self.scene, self.player.camera );
 		requestAnimationFrame( self.animate );
 
 	}
@@ -50,15 +50,38 @@ threeHelper = function(){
 
  		//ground
 		var texture = THREE.ImageUtils.loadTexture('../images/napkin_texture_by_luiexs.jpg');
- 		var ground = new THREE.Mesh(new THREE.PlaneGeometry( 100, 100, 10, 10 ), new THREE.MeshBasicMaterial({map: texture }));
+ 		var ground = new THREE.Mesh(new THREE.PlaneGeometry( 100, 300, 10, 10 ), new THREE.MeshBasicMaterial({map: texture }));
  			ground.rotation.x = -Math.PI/2;
- 			ground.position.z = -40;
  			ground.name = "ground";
  		self.scene.add(ground);
- 		//light
-		var ambientLight = new THREE.AmbientLight( 0xFFFFFF );
-			ambientLight.name = "ambientLight";
-		self.scene.add(ambientLight);
+
+ 		//lighting
+		var topPointLight = new THREE.PointLight( 0xE68A5C, 5, 100 );
+			topPointLight.position.y = 50;
+		self.scene.add(topPointLight);
+		var hemLight = new THREE.HemisphereLight(0xFFE0F5, 0xE65C00, 1)
+		self.scene.add(hemLight);
+
+		//bottles ;-)
+		var loader = new THREE.JSONLoader();
+			//ketchup 
+			loader.load( "../models/json/bottle.json", function( geometry ) {
+		  		var material = new THREE.MeshPhongMaterial({color:0x800000, shading:THREE.FlatShading, side: THREE.DoubleSide})
+		        mesh = new THREE.Mesh( geometry, material );
+		        mesh.scale.set( 8, 8, 8 );
+		        mesh.position.z = -140;
+
+		        self.scene.add(mesh);
+	   	 	} );
+	   	 	//mustard
+	   	 	loader.load( "../models/json/bottle.json", function( geometry ) {
+		  		var material = new THREE.MeshPhongMaterial({color:0xFFDB4D, shading:THREE.FlatShading, side: THREE.DoubleSide})
+		        mesh = new THREE.Mesh( geometry, material );
+		        mesh.scale.set( 8, 8, 8 );
+		        mesh.position.z = 140;
+
+		        self.scene.add(mesh);
+	   	 	} );
 
 	};
 

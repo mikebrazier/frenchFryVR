@@ -25,7 +25,7 @@ Player = function ( myPlayer ){
 		}
 
 		//Box representing the head
-		self.head = new THREE.Mesh( new THREE.BoxGeometry( 5, 5, 5 ), new THREE.MeshNormalMaterial() );
+		self.head = new THREE.Mesh( new THREE.BoxGeometry( 2, 5, 2 ), new THREE.MeshPhongMaterial({color:0xFFEB99, shading:THREE.FlatShading}));
 
 		//Make the head a child of the camera.  This will allow it to rotate with the camera's movement
 		self.camera.add(self.head);
@@ -34,7 +34,7 @@ Player = function ( myPlayer ){
 		self.person.add(self.camera);
 
 		//the mesh representing the body
-		self.body = new THREE.Mesh( new THREE.BoxGeometry( 5, 15, 5), new THREE.MeshNormalMaterial() );
+		self.body = new THREE.Mesh(new THREE.BoxGeometry( 2, 15, 2), new THREE.MeshPhongMaterial({color:0xFFEB99, shading:THREE.FlatShading}));
 		self.body.position.y = 7.5;
 		self.person.add(self.body);
 

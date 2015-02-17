@@ -55,7 +55,7 @@ iframe{
 #username{
 	border-radius: 4px;
 	border-style: none; 
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 80, 0, 0.3);
 
 	font-family: 'OpenSans';
 	font-weight: bold;
@@ -64,7 +64,7 @@ iframe{
 }
 
 #usernameButton{
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 80, 0, 0.3);
 	background-image: none;
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 5px;
@@ -99,9 +99,13 @@ h1{
 }
 
 span{
-	color:#888888;
+	color:#C06565;
 }
 
+li{
+		background-color: rgba(255, 80, 0, 0.3);
+
+}
 ul{
 	margin-top: 2%;
 	padding:0;

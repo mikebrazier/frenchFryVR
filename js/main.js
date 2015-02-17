@@ -97,7 +97,8 @@ events
 function onWindowResize() {
 	threeHelper.player.camera.aspect = window.innerWidth / window.innerHeight;
 	threeHelper.player.camera.updateProjectionMatrix();
-
+	
+	threeHelper.renderer.setSize( window.innerWidth, window.innerHeight);
 	threeHelper.effect.setSize( window.innerWidth, window.innerHeight);
 }
 function goFullScreen(){
