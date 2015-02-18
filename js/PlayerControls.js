@@ -74,13 +74,13 @@ PlayerControls.prototype.update = function(){
 
 	if(this.moveForward) {
 
-		this.person.translateOnAxis(forward, -0.5);
+		this.person.translateOnAxis(forward, -0.005);
 
 	}
 
 	if(this.moveBackward) {
 
-		this.person.translateOnAxis(forward, 0.5);
+		this.person.translateOnAxis(forward, 0.005);
 
 	}
 

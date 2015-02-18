@@ -38,9 +38,9 @@ Player = function ( myPlayer ){
 		self.person.add(self.camera);
 
 		//the mesh representing the body
-		self.body = new THREE.Mesh(new THREE.BoxGeometry( 2, 15, 2), new THREE.MeshPhongMaterial({color: playerColor, shading:THREE.FlatShading}));
-		self.body.position.y = 7.5;
-		self.person.add(self.body);
+		// self.body = new THREE.Mesh(new THREE.BoxGeometry( 2, 15, 2), new THREE.MeshPhongMaterial({color: playerColor, shading:THREE.FlatShading}));
+		// self.body.position.y = 7.5;
+		// self.person.add(self.body);
 
 		//the data which will be sent via Peerjs.
 		self.data = {

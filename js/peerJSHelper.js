@@ -169,7 +169,6 @@ peerJSHelper = function(){
 
 		var text = document.createTextNode(string);
 		var el = document.createElement("LI");
-			// el.setAttribute('style', 'color:'+' #'+(Math.random()*0xFFFFFF<<0).toString(16));
 			el.setAttribute("id", string);
 			el.appendChild(text);
 		document.getElementById("connectionsList").appendChild(el);
