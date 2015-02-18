@@ -57,16 +57,15 @@ getAudio = function(){
 creates the Three content we'll be using for our world
  */
 function startThree(){
-	//when starting the world, everyone should be joined. This can be edited eventually.
 	connections = peerHelper.connections;
 	players = {};
 	//threeHelper handles the graphics side of the VR experience
 	threeHelper = new threeHelper();
+	//add in the scene
+	document.getElementById('webGL').appendChild( threeHelper.renderer.domElement );
 	//remove the iframe background, if there is one
 	var vrIframe = document.getElementById( 'vrIframe' );
 	if(vrIframe)vrIframe.parentNode.removeChild( vrIframe );
-	//add in the scene
-	document.getElementById('webGL').appendChild( threeHelper.renderer.domElement );
 	//send to other players my information
 	sendMyPlayer();
 	//start the animation
@@ -103,6 +102,7 @@ function onWindowResize() {
 }
 function goFullScreen(){
 	threeHelper.effect.setSize( window.innerWidth, window.innerHeight );
+	threeHelper.renderer.set
 	threeHelper.effect.setFullScreen( true );
 }
 

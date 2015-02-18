@@ -1,23 +1,12 @@
-@font-face{
-	font-family: 'OpenSans';
-	src: url('fonts/OpenSans/OpenSans/OpenSans-Regular.ttf') format('truetype');
-}
-
-@font-face{
-	font-family: 'OpenSansBold';
-	src: url('fonts/OpenSans/OpenSansBold/OpenSans-Bold.ttf') format('truetype');
-}
-
-
 body{
-	background-color: #0082BF;
+	background-color: #000012;
 
-	font-family: 'OpenSans';
+	font-family: 'Fira Sans', sans-serif;
 	font-size: 125%
 }
 
 .hasBackground{
-	background-color: rgba(0, 0, 0, 0.3);;
+	background-color: rgba(77, 77, 77, 0.3);
 }
 #container{
 	position:absolute;
@@ -48,7 +37,7 @@ iframe{
 }
 
 #title{
-	font-family: 'OpenSansBold';
+
 	font-size: 250%;
     letter-spacing: 2px;
     margin-bottom: 2%;
@@ -59,7 +48,6 @@ iframe{
 	border-style: none; 
 	background-color: rgba(0, 0, 0, 0.3);
 
-	font-family: 'OpenSans';
 	font-weight: bold;
 	font-size:100%;
 	color: #FFFFFF;

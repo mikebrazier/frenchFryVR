@@ -38,7 +38,7 @@ peerJSHelper = function(){
 				//add this new connection to our list
 				self.connections.addConnection(conn);
 
-				//call the new peer across the connection
+				//call the new peer
 				var call = peer.call(conn.peer, mediaStream);
 
 				//provide the currently connected peers with this new connection
@@ -79,6 +79,7 @@ peerJSHelper = function(){
 
 		var connections = {};
 
+			//connections.list is an object where the property names are the connection ids and the values are the actual connection objects
 			connections.list = {};
 
 			connections.addConnection = function(connection){
@@ -101,15 +102,17 @@ peerJSHelper = function(){
 
 		function addConnectionEvents(connection){
 
+			//when the connection opens
 			connection.on('open', function(){
 				var data = {};
 
 				//if you've provided a username
 				if(self.username){
+					//send it
 					data.username = self.username;
 				}
-
 				connection.send(data);
+				//add this new connection to the list
 				addListItem(connection.peer);
 			});
 
@@ -118,9 +121,11 @@ peerJSHelper = function(){
 				connections.removeConnection(connection);
 			});
 
+			//when receiving data
 			connection.on('data', function(data){
 				//username is used for the HTML list
 				if(data.username){
+					//this.peer refers to the connection's id
 					changeListItem(this.peer, data.username);
 				}
 				if(data.cameraRotation){
@@ -137,7 +142,7 @@ peerJSHelper = function(){
 
 					//go through the ids we're currently connected to
 					if(myIDs.indexOf(data.connID) < 0){
-						//if we're not connected to them yet, connect to them
+						//if we're not connected yet, connect to the new ID
 						var connection = self.peer.connect(data.connID);
 						self.connections.addConnection(connection);
 						//if a threeHelper scene exists, add a new player to it
@@ -164,6 +169,7 @@ peerJSHelper = function(){
 
 		var text = document.createTextNode(string);
 		var el = document.createElement("LI");
+			// el.setAttribute('style', 'color:'+' #'+(Math.random()*0xFFFFFF<<0).toString(16));
 			el.setAttribute("id", string);
 			el.appendChild(text);
 		document.getElementById("connectionsList").appendChild(el);

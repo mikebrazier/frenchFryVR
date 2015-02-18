@@ -20,12 +20,16 @@ Player = function ( myPlayer ){
 		self.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 
 		if(self.myPlayer){
-			self.cameraControls = new THREE.VRControls(self.camera, function(str){console.log(str)});
+			self.cameraControls = new THREE.VRControls(self.camera, function(str){console.log('VRControls done callback: '+str)});
+			var orientationCheck = self.cameraControls.getVRState();
+			console.log(orientationCheck);
 			self.name = peerHelper.id;
 		}
 
 		//Box representing the head
-		self.head = new THREE.Mesh( new THREE.BoxGeometry( 2, 5, 2 ), new THREE.MeshPhongMaterial({color:0xFFEB99, shading:THREE.FlatShading}));
+		var playerColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+
+		self.head = new THREE.Mesh( new THREE.BoxGeometry( 2, 5, 2 ), new THREE.MeshBasicMaterial({color: playerColor, shading:THREE.FlatShading}));
 
 		//Make the head a child of the camera.  This will allow it to rotate with the camera's movement
 		self.camera.add(self.head);
@@ -34,7 +38,7 @@ Player = function ( myPlayer ){
 		self.person.add(self.camera);
 
 		//the mesh representing the body
-		self.body = new THREE.Mesh(new THREE.BoxGeometry( 2, 15, 2), new THREE.MeshPhongMaterial({color:0xFFEB99, shading:THREE.FlatShading}));
+		self.body = new THREE.Mesh(new THREE.BoxGeometry( 2, 15, 2), new THREE.MeshPhongMaterial({color: playerColor, shading:THREE.FlatShading}));
 		self.body.position.y = 7.5;
 		self.person.add(self.body);
 

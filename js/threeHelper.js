@@ -6,9 +6,11 @@ threeHelper = function(){
 		self.scene = null;
 		self.camera = null;
 		self.player = null;
+		self.sphere = null;
 
 	self.animate = function(){
 
+		self.sphere.rotation.y+=.0005;
 		self.player.update();
 		self.playerControls.update();
 		self.effect.render( self.scene, self.player.camera );
@@ -60,39 +62,24 @@ threeHelper = function(){
 		self.playerControls = new PlayerControls( self.player );
 
  		//ground
-		var texture = THREE.ImageUtils.loadTexture('../images/napkin_texture_by_luiexs.jpg');
- 		var ground = new THREE.Mesh(new THREE.PlaneGeometry( 100, 300, 10, 10 ), new THREE.MeshBasicMaterial({map: texture }));
+		var texture = THREE.ImageUtils.loadTexture('../images/grass.jpg');
+ 		var ground = new THREE.Mesh(new THREE.PlaneGeometry( 600, 600, 10, 10 ), new THREE.MeshLambertMaterial({map: texture }));
  			ground.rotation.x = -Math.PI/2;
  			ground.name = "ground";
  		self.scene.add(ground);
 
- 		//lighting
-		var topPointLight = new THREE.PointLight( 0xE68A5C, 5, 100 );
-			topPointLight.position.y = 50;
+ 		//space sphere
+ 		var texture = THREE.ImageUtils.loadTexture('../images/space.jpg');
+ 		self.sphere = new THREE.Mesh(new THREE.SphereGeometry( 300, 30, 30 ), new THREE.MeshLambertMaterial({map: texture, side: THREE.DoubleSide }));
+ 		self.scene.add(self.sphere);
+ 		// lighting
+		var topPointLight = new THREE.PointLight( 0xEBF5FF, 2, 400 );
+			topPointLight.position.y = 250;
 		self.scene.add(topPointLight);
-		var hemLight = new THREE.HemisphereLight(0xFFE0F5, 0xE65C00, 1)
-		self.scene.add(hemLight);
 
-		//bottles ;-)
-		var loader = new THREE.JSONLoader();
-			//ketchup 
-			loader.load( "../models/json/bottle.json", function( geometry ) {
-		  		var material = new THREE.MeshPhongMaterial({color:0x800000, shading:THREE.FlatShading, side: THREE.DoubleSide})
-		        mesh = new THREE.Mesh( geometry, material );
-		        mesh.scale.set( 8, 8, 8 );
-		        mesh.position.z = -140;
-
-		        self.scene.add(mesh);
-	   	 	} );
-	   	 	//mustard
-	   	 	loader.load( "../models/json/bottle.json", function( geometry ) {
-		  		var material = new THREE.MeshPhongMaterial({color:0xFFDB4D, shading:THREE.FlatShading, side: THREE.DoubleSide})
-		        mesh = new THREE.Mesh( geometry, material );
-		        mesh.scale.set( 8, 8, 8 );
-		        mesh.position.z = 140;
-
-		        self.scene.add(mesh);
-	   	 	} );
+		var directionalLight = new THREE.DirectionalLight( 0x000099, 1 ); 
+			directionalLight.position.set( 0, 1, 0 ); 
+			self.scene.add( directionalLight );
 
 	};
 

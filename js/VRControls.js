@@ -69,6 +69,11 @@ THREE.VRControls = function ( camera, done ) {
 			return null;
 		}
 		orientation	= vrInput.getState().orientation;
+
+		/*
+		mike added this conditional, as orientation was returning null when device was unrecognized
+		the done callback was not being processed even when my Oculus wasn't connected
+		 */
 		if(orientation != null){
 			vrState = {
 				hmd : {
