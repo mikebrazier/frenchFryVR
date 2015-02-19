@@ -70,17 +70,18 @@ PlayerControls = function (player){
 PlayerControls.prototype.update = function(){
 
 	var cameraVector = new THREE.Vector3( 0, 0, 1 ).applyQuaternion(this.camera.quaternion.clone());
-	var forward = cameraVector.projectOnPlane(new THREE.Vector3( 0, 1, 0 )).normalize();
+	// var forward = cameraVector.projectOnPlane(new THREE.Vector3( 0, 1, 0 )).normalize();
+	var forward = cameraVector;
 
 	if(this.moveForward) {
 
-		this.person.translateOnAxis(forward, -0.005);
+		this.person.translateOnAxis(forward, -0.5);
 
 	}
 
 	if(this.moveBackward) {
 
-		this.person.translateOnAxis(forward, 0.005);
+		this.person.translateOnAxis(forward, 0.5);
 
 	}
 

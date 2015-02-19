@@ -8,12 +8,16 @@ threeHelper = function(){
 		self.player = null;
 		self.sphere = null;
 		self.earth = null;
+		self.moon = null;
+		self.station = null;
 		self.Sun = null;
+
+	var pi = 0;
 
 	self.animate = function(){
 
-		self.earth.rotation.x +=.0001;
-		self.sphere.rotation.y+=.00001;
+		moveMoon();
+		self.earth.rotation.x +=.0005;
 		self.player.update();
 		self.playerControls.update();
 		self.effect.render( self.scene, self.player.camera );
@@ -40,7 +44,7 @@ threeHelper = function(){
 
 		 //renderer
 		self.renderer = new THREE.WebGLRenderer( { antialias: true,  alpha: true } );
-		self.renderer.setClearColor( 0x19A3FF, 1);
+		self.renderer.setClearColor( 0x000000, 1);
 		self.renderer.setSize(window.innerWidth, window.innerHeight);
 		self.renderer.gammaInput = true;
 		self.renderer.gammaOutput = true;
@@ -65,36 +69,42 @@ threeHelper = function(){
 		});
 
 		self.playerControls = new PlayerControls( self.player );
-
-
- 		//space sphere
- 		var texture = THREE.ImageUtils.loadTexture('../images/space.jpg');
- 		self.sphere = new THREE.Mesh(new THREE.SphereGeometry( 5000, 30, 30 ), new THREE.MeshBasicMaterial({ color: 0x000000 , side: THREE.DoubleSide }));
- 		self.scene.add(self.sphere);
- 		//earth
+		//earth
  		var earthTexture = THREE.ImageUtils.loadTexture('../images/earthish.png');
  		self.earth = new THREE.Mesh(new THREE.SphereGeometry( 100, 60, 60 ), new THREE.MeshLambertMaterial({map: earthTexture}));
-		self.earth.position.y = -1000;
-		self.earth.rotation.y = -Math.PI/4;
-		self.earth.rotation.z = Math.PI/4;
+		self.earth.position.y = -100;
  		self.scene.add(self.earth);
+ 		//moon
+ 		var moonTexture = THREE.ImageUtils.loadTexture('../images/moon.jpg');
+ 		self.moon = new THREE.Mesh(new THREE.SphereGeometry( 15, 60, 60 ), new THREE.MeshLambertMaterial({map: moonTexture}));
+ 		self.moon.position.y = self.earth.position.y;
+ 		self.moon.position.z = -200;
+ 		self.scene.add(self.moon);
+	 	//station
+	 	/*
+		 	var stationTexture = new THREE.MeshBasicMaterial( {color:0xFFFFFF} );
+			var loader = new THREE.OBJLoader();
+			loader.load( "../models/cassini.obj", function( object ) {
+
+		  	// 	object.traverse( function ( child ) {
+
+					// 	if ( child instanceof THREE.Mesh ) {
+
+					// 		child.material.map = stationTexture;
+
+					// 	}
+
+					// } );
+
+				object.position.y = - 80;
+				self.scene.add( object );
+	   	 	});
+		*/
+
 	 	// lighting
-		 // 		var ambientLight = new THREE.AmbientLight( 0x3D7A99 );
-		// self.scene.add(ambientLight);
-
-		// var topPointLight = new THREE.PointLight( 0x3D7A99, 2, 10001 );
-		// 	topPointLight.position.y = 2000;
-		// self.scene.add(topPointLight);
-
-		// self.Sun = new THREE.Mesh(new THREE.SphereGeometry( 5, 20, 20 ), new THREE.MeshBasicMaterial({color: 0xFF3300}));
-		// self.Sun.position.x = -2000;
-		// self.Sun.position.y = 600;
-
-		var directionalLight = new THREE.DirectionalLight( 0xFFFFFF, .5); 
-			directionalLight.position.set( 0, 2000, -20000 );
-		// self.Sun.add(directionalLight);
-
-		self.scene.add( directionalLight);
+		// var directionalLight = new THREE.DirectionalLight( 0xFFFFFF, .5); 
+		// 	directionalLight.position.set( 0, 2000, -20000 );
+		// self.scene.add( directionalLight);
 
 		// lens flares taken from examples
 
@@ -102,13 +112,13 @@ threeHelper = function(){
 		var textureFlare2 = THREE.ImageUtils.loadTexture( "../images/lensflare2.png" );
 		var textureFlare3 = THREE.ImageUtils.loadTexture( "../images/lensflare3.png" );
 
-		addLight( 0.55, 0.9, 0.5, 5000,  -300, -1000);
-		addLight( 0.08, 0.8, 0.5, 0,  -100, -1000 );
-		addLight( 0.995, 0.5, 0.9, 5000, -300, -1000 );
+		// addLight( 0.55, 0.9, 0.5, 0,  0, 1000);
+		addLight( 0.08, 0.8, 0.5, 0,  200, 10000);
+		addLight( 0.995, 0.5, 0.9, 0,  200, 14000 );
 
 		function addLight( h, s, l, x, y, z ) {
 
-			var light = new THREE.PointLight( 0xffffff, 1.5, 4500 );
+			var light = new THREE.PointLight( 0xffffff, 1, 15000 );
 			light.color.setHSL( h, s, l );
 			light.position.set( x, y, z );
 			self.scene.add( light );
@@ -127,7 +137,7 @@ threeHelper = function(){
 			lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
 			lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
 
-			// lensFlare.customUpdateCallback = lensFlareUpdateCallback;
+			lensFlare.customUpdateCallback = lensFlareUpdateCallback;
 			lensFlare.position.copy( light.position );
 			lensFlare.name = 'lensFlare';
 			lensFlare.rightEye = true;
@@ -183,7 +193,6 @@ threeHelper = function(){
 			var flare;
 			var vecX = -object.positionScreen.x * 2;
 			var vecY = -object.positionScreen.y * 2;
-			console.log(vecX, vecY);
 
 			for( f = 0; f < fl; f++ ) {
 
@@ -200,6 +209,15 @@ threeHelper = function(){
 			object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
 
 		}
+
+	function moveMoon(){
+		pi += .001;
+		self.moon.rotation.y += .02;
+		self.moon.position.x += (2.5*Math.cos(pi));
+		self.moon.position.z += (5*Math.sin(pi));
+
+		if(pi>2*Math.PI) pi = 0;
+	}
 
 	return self;
 }

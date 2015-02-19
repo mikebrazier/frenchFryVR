@@ -119,6 +119,10 @@ peerJSHelper = function(){
 			connection.on('close', function(){
 				removeListItem(connection.peer);
 				connections.removeConnection(connection);
+				if(threeHelper.scene){
+					var object = threeHelper.scene.getObjectByName(connection.peer);
+					threeHelper.scene.remove(object);
+				}
 			});
 
 			//when receiving data

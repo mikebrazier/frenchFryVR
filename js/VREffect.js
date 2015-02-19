@@ -102,6 +102,7 @@ THREE.VREffect = function ( renderer, done ) {
 		camera.matrixWorld.decompose( cameraLeft.position, cameraLeft.quaternion, cameraLeft.scale );
 		camera.matrixWorld.decompose( cameraRight.position, cameraRight.quaternion, cameraRight.scale );
 
+		camera.matrixWorldInverse.getInverse( camera.matrixWorld );
 		// render left eye
 		renderer.setViewport( 0, 0, eyeDivisionLine, rendererHeight );
 		renderer.setScissor( 0, 0, eyeDivisionLine, rendererHeight );
